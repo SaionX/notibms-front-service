@@ -1,0 +1,46 @@
+﻿<h1>Entitats</h1>
+<a routerLink="add" class="btn btn-sm btn-success mb-2">Nova entitat</a>
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th style="width: 15%">Codi</th>
+    <th style="width: 35%">Nom</th>
+    <th style="width: 15%">Codi Dir3</th>
+    <th style="width: 5%">Activa</th>
+    <th style="width: 10%">Aplicacions</th>
+    <th style="width: 10%">Permisos</th>
+    <th style="width: 10%"></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let entitat of entitats">
+    <td>{{entitat.codi}}</td>
+    <td>{{entitat.nom}}</td>
+    <td>{{entitat.dir3Codi}}</td>
+    <td><span *ngIf="entitat.activa" class="fa fa-check"></span></td>
+    <td><a class="btn btn-default"><span class="fa fa-puzzle-piece"></span> Aplicacions <span class="badge">{{entitat.numAplicacions}}</span></a></td>
+    <td><a class="btn btn-default"><span class="fa fa-key"></span> Permisos <span class="badge">{{entitat.permisosCount}}</span></a></td>
+    <td>
+      <div class="dropdown">
+        <button class="btn btn-primary" data-toggle="dropdown"><span class="fa fa-cog"></span> Accions <span class="caret"></span></button>
+        <ul class="dropdown-menu">
+          <li><a routerLink="edit/{{entitat.id}}" data-toggle="modal"><span class="fa fa-pencil"></span> Modificar</a></li>
+          <li *ngIf="entitat.activa"><a><span class="fa fa-check"></span> Activar</a></li>
+          <li *ngIf="!entitat.activa"><a><span class="fa fa-times"></span> Desactivar</a></li>
+          <li>
+            <a (click)="deleteEntitat(entitat.id)">
+              <span *ngIf="!entitat.isDeleting"><span class="fa fa-trash-o"></span> Eliminar</span>
+              <span *ngIf="entitat.isDeleting" class="spinner-border spinner-border-sm"></span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </td>
+  </tr>
+  <tr *ngIf="!entitats">
+    <td colspan="7" class="text-center">
+      <span class="spinner-border spinner-border-lg align-center"></span>
+    </td>
+  </tr>
+  </tbody>
+</table>
